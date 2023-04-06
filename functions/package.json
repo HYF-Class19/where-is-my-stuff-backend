@@ -3,11 +3,22 @@
   "description": "Cloud Functions for Firebase",
   "scripts": {
     "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "lint:ci": "npm run lint",
+    "build": "npm run lint",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "test": "mocha --exit --recursive tests",
+    "test:watch": "mocha --exit --recursive --watch tests",
+    "test:coverage": "nyc --reporter=lcov -- mocha --exit --recursive tests",
+    "test:ci": "npm run test:coverage && npm run lint",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
+    "prettier:ci": "npm run prettier:check",
+    "prettier:watch": "npm run prettier -- --watch"
   },
   "engines": {
     "node": "16"
