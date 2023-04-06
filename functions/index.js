@@ -24,6 +24,13 @@ exports.addUserToTopic = functions.firestore
     return admin.messaging().subscribeToTopic(user.token, "chat");
   });
 
+exports.removeUserFromTopic = functions.firestore
+    .document("users/{userId}")
+    .onDelete((snap, context) => {
+        const user = snap.data();
+        return admin.messaging().unsubscribeFromTopic(user.token, "chat");
+    });
+
 // // Create and Deploy Your First Cloud Functions
 
 // // https://firebase.google.com/docs/functions/write-firebase-functions
